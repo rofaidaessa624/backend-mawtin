@@ -12,6 +12,8 @@ class UnitUpdateImage extends Model
     protected $fillable = [
         'unit_update_id',
         'path',
+                'file_type', // ✅ أضف هذا
+
     ];
 
     public function unitUpdate()

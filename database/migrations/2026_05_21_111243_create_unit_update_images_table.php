@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('unit_update_id')->constrained()->onDelete('cascade');
             $table->string('path');
+                        $table->string('file_type')->nullable(); // ✅ أضف هذا السطر
+
             $table->timestamps();
         });
     }
