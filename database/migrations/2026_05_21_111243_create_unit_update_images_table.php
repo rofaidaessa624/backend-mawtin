@@ -4,22 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddFileTypeToUnitUpdateImagesTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
-        Schema::create('unit_update_images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('unit_update_id')->constrained()->onDelete('cascade');
-            $table->string('path');
-                        $table->string('file_type')->nullable(); // ✅ أضف هذا السطر
-
-            $table->timestamps();
+        Schema::table('unit_update_images', function (Blueprint $table) {
+            $table->string('file_type')->nullable()->after('path');
         });
     }
 
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('unit_update_images');
+        Schema::table('unit_update_images', function (Blueprint $table) {
+            $table->dropColumn('file_type');
+        });
     }
-};
+}

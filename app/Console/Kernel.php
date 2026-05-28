@@ -5,8 +5,7 @@ protected function commands(): void
     require base_path('routes/console.php');
 }
 
-protected function schedule(Schedule $schedule): void
+protected function schedule(Schedule $schedule)
 {
-    // تشغيل الأمر يومياً الساعة 8 صباحاً
-    $schedule->command('installments:check-upcoming')->dailyAt('08:00');
+    $schedule->command('notifications:installments')->daily();
 }
