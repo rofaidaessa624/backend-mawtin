@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    // FCM Configuration
+    'fcm' => [
+        'project_id' => env('FCM_PROJECT_ID'),
+        'private_key' => env('FCM_PRIVATE_KEY'),
+        'client_email' => env('FCM_CLIENT_EMAIL'),
+        'type' => env('FCM_TYPE', 'service_account'),
+    ],
+
 ];
