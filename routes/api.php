@@ -11,16 +11,26 @@ use App\Http\Controllers\Api\AdminUpdateController;
 use App\Http\Controllers\UnitImageController;
 use App\Http\Controllers\Api\UnitUpdateController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\ClientDeviceController;
+
 
 //Notifications Routes
 
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::get('/notifications', [NotificationController::class, 'index']);
-    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+
+    Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead']);
+
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+
+    Route::post('/save-device-token', [NotificationController::class, 'saveDeviceToken']);
 });
 
 
+Route::post('/v1/client/save-device-token', 
+    [ClientDeviceController::class, 'saveDeviceToken']
+);
 // ============ Routes للمستخدمين (العملاء) الأساسية ============
 Route::post('client/login', [AuthController::class, 'clientLogin']);
 Route::post('client/register', [AuthController::class, 'clientRegister']);

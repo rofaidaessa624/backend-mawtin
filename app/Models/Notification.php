@@ -21,4 +21,13 @@ class Notification extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    protected $casts = [
+    'is_read' => 'boolean',
+];
+
+public function unit()
+{
+    return $this->belongsTo(Unit::class);
+}
+
 }

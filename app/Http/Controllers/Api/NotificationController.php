@@ -48,4 +48,21 @@ class NotificationController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+public function saveDeviceToken(Request $request)
+{
+    $request->validate([
+        'device_token' => 'required'
+    ]);
+
+    $client = $request->user();
+
+    $client->update([
+        'device_token' => $request->device_token
+    ]);
+
+    return response()->json([
+        'success' => true
+    ]);
+}
 }

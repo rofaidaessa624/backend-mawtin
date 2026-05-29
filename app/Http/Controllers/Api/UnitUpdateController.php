@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Models\Notification;
+use App\Services\FirebaseNotificationService;
 
 use App\Http\Controllers\Controller;
 use App\Models\UnitUpdate;
@@ -71,6 +73,28 @@ class UnitUpdateController extends Controller
                 return $image;
             });
         }
+$unit = Unit::with('client')->find($request->unit_id);
+
+if ($unit && $unit->client) {
+
+    // حفظ إشعار داخل النظام
+    Notification::create([
+        'client_id' => $unit->client->id,
+        'unit_id' => $unit->id,
+        'title' => 'تحديث جديد على وحدتك',
+        'message' => $request->update_text ?: 'تم إضافة تحديث جديد على وحدتك',
+        'type' => 'info',
+        'notification_type' => 'unit_update',
+    ]);
+
+    // Chrome Notification
+    app(FirebaseNotificationService::class)->sendToClient(
+        $unit->client,
+        'تحديث جديد على وحدتك',
+        $request->update_text ?: 'تم إضافة تحديث جديد على وحدتك'
+    );
+}
+
 
         return response()->json([
             'success' => true,

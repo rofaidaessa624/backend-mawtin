@@ -1,11 +1,22 @@
-protected function commands(): void
-{
-    $this->load(__DIR__.'/Commands');
+<?php
 
-    require base_path('routes/console.php');
-}
+namespace App\Console;
 
-protected function schedule(Schedule $schedule)
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
+class Kernel extends ConsoleKernel
 {
-    $schedule->command('notifications:installments')->daily();
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('installments:check-upcoming')
+            ->daily();
+    }
+
+    protected function commands(): void
+    {
+        $this->load(__DIR__.'/Commands');
+
+        require base_path('routes/console.php');
+    }
 }

@@ -29,6 +29,10 @@ class Unit extends Model
                     ->withPivot('agreed_price', 'paid_amount', 'purchase_date', 'contract_status')
                     ->withTimestamps();
     }
+    public function client()
+{
+    return $this->belongsTo(Client::class);
+}
 
     public function installments()
     {
